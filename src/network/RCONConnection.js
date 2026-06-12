@@ -226,8 +226,8 @@ class RCONConnection extends EventEmitter {
 
         // Application-level circuit breaker for clean 400 responses
         const isDesynced = responseMessage.statusCode === 400 ||
-          (typeof responseMessage.contentBody === "string" &&
-            (responseMessage.contentBody.includes("400") || responseMessage.contentBody.toLowerCase().includes("malformed")));
+          (responseMessage.statusCode !== 200 && typeof responseMessage.contentBody === "string" &&
+            responseMessage.contentBody.toLowerCase().includes("malformed"));
 
         if (isDesynced) {
           // This usually means our transmit stream got messed up.
@@ -256,10 +256,14 @@ class RCONConnection extends EventEmitter {
         const xorKeyB64 = responseMessage.contentBody;
         this.xorKey = Buffer.from(xorKeyB64, "base64");
 
-        await this.send({
-          name: "Login",
-          contentBody: this.password
-        });
+        try {
+          await this.send({
+            name: "Login",
+            contentBody: this.password
+          });
+        } catch (err) {
+          console.error(`Login sequence failed: ${err.message}`);
+        }
 
         break;
       }
