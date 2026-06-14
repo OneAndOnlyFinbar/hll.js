@@ -49,12 +49,12 @@ class PoolManager {
       await new Promise((r) => setTimeout(r, 5000));
 
       try {
-        console.log(`Auto-recovery attempt ${attempt}...`);
+        this.client.emit("debug", `Auto-recovery attempt ${attempt}...`);
         await this.#createConnection();
         reconnected = true;
-        console.log("Auto-recovery successful. RCON connection restored.");
+        this.client.emit("debug", "Auto-recovery successful. RCON connection restored.");
       } catch (err) {
-        console.error(`Auto-recovery attempt ${attempt} failed:`, err.message);
+        this.client.emit("debug", `Auto-recovery attempt ${attempt} failed:`, err.message);
         attempt++;
       }
     }
@@ -85,7 +85,7 @@ class PoolManager {
           return;
         }
 
-        console.warn("RCON connection dropped. Initiating auto-recovery...");
+        this.client.emit("debug","RCON connection dropped. Initiating auto-recovery...");
         await this.#reconnectSlot();
       });
 

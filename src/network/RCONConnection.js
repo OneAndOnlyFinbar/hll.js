@@ -17,6 +17,9 @@ const RequestMessage = require("./RequestMessage");
  * @extends EventEmitter
  */
 class RCONConnection extends EventEmitter {
+  /** @type{RCONClient} */
+  client;
+
   /** @type {net.Socket} */
   socket = new net.Socket();
 
@@ -62,6 +65,8 @@ class RCONConnection extends EventEmitter {
    */
   constructor({ client }) {
     super();
+
+    this.client = client;
 
     this.host = client.host;
     this.port = client.port;
@@ -121,7 +126,7 @@ class RCONConnection extends EventEmitter {
 
           // Socket is unresponsive, close the connection.
           if (this.consecutiveTimeouts >= this.maxConsecutiveTimeouts) {
-            console.warn(`[ZOMBIE CONNECTION] ${this.consecutiveTimeouts} timeouts in a row. Forcing socket kill...`);
+            this.client.emit("debug",`[ZOMBIE CONNECTION] ${this.consecutiveTimeouts} timeouts in a row. Forcing socket kill...`);
             this.socket.destroy();
           }
         }
@@ -177,7 +182,7 @@ class RCONConnection extends EventEmitter {
 
       // If the header is invalid, the TCP stream is misaligned.
       if (magicHeader !== 0xDE450508) {
-        console.warn(`[TCP DESYNC] Invalid Magic Header detected. Attempting to realign buffer...`);
+        this.client.emit("debug",`[TCP DESYNC] Invalid Magic Header detected. Attempting to realign buffer...`);
 
         // Search the buffer for the next valid magic header sequence.
         const magicBytes = Buffer.from([0x08, 0x05, 0x45, 0xDE]);
@@ -192,7 +197,7 @@ class RCONConnection extends EventEmitter {
         }
 
         // Found the start of the next packet, Slice off the corrupted bytes to realign the stream.
-        console.log(`[TCP DESYNC] Buffer realigned successfully. Discarded ${nextValidIndex} corrupt bytes.`);
+        this.client.emit("debug", `[TCP DESYNC] Buffer realigned successfully. Discarded ${nextValidIndex} corrupt bytes.`);
         this.receiveBuffer = this.receiveBuffer.subarray(nextValidIndex);
 
         // The loop will immediately restart with the buffer perfectly aligned
@@ -240,7 +245,7 @@ class RCONConnection extends EventEmitter {
 
         delete this.requestCache[id];
       } else {
-        console.warn(`Ghost Packet: Server responded to ${id} but the message already timed out.`);
+        this.client.emit("debug",`Ghost Packet: Server responded to ${id} but the message already timed out.`);
       }
     }
   }
