@@ -17,7 +17,7 @@ const RequestMessage = require("./RequestMessage");
  * @extends EventEmitter
  */
 class RCONConnection extends EventEmitter {
-  /** @type{RCONClient} */
+  /** @type{WW2Client} */
   client;
 
   /** @type {net.Socket} */
@@ -61,7 +61,7 @@ class RCONConnection extends EventEmitter {
 
   /**
    * @param {Object} options - The initialization options.
-   * @param {RCONClient} options.client - The parent RCON client instance.
+   * @param {WW2Client} options.client - The parent RCON client instance.
    */
   constructor({ client }) {
     super();

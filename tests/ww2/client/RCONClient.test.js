@@ -1,4 +1,4 @@
-const { RCONClient } = require("../../../src/index");
+const { WW2Client } = require("../../../src/index");
 require("dotenv").config({ quiet: true });
 
 describe("Client Functions", () => {
@@ -6,7 +6,7 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new RCONClient({
+      client = new WW2Client({
         host: process.env.RCON_HOST,
         port: process.env.RCON_PORT,
         password: process.env.RCON_PASSWORD + "1"
@@ -30,7 +30,7 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new RCONClient({
+      client = new WW2Client({
         host: process.env.RCON_HOST,
         port: process.env.RCON_PORT,
         password: process.env.RCON_PASSWORD + "1"
@@ -70,7 +70,7 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new RCONClient({
+      client = new WW2Client({
         host: process.env.RCON_HOST,
         port: process.env.RCON_PORT,
         password: process.env.RCON_PASSWORD
@@ -114,7 +114,7 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new RCONClient({
+      client = new WW2Client({
         host: process.env.RCON_HOST,
         port: process.env.RCON_PORT,
         password: process.env.RCON_PASSWORD

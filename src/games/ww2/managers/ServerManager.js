@@ -14,7 +14,7 @@ const BaseManager = require("../../../core/managers/BaseManager");
  * @extends BaseManager
  */
 class ServerManager extends BaseManager {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   constructor(client) {

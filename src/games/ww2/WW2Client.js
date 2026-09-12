@@ -30,7 +30,7 @@ const SessionManager = require("./managers/SessionManager");
  * @class
  * @extends EventEmitter
  */
-class RCONClient extends EventEmitter {
+class WW2Client extends EventEmitter {
   /** @type {PoolManager} */
   pool;
 
@@ -166,4 +166,4 @@ class RCONClient extends EventEmitter {
   }
 }
 
-module.exports = RCONClient;
+module.exports = WW2Client;

@@ -1,13 +1,13 @@
 // Untested methods: setDynamicWeather, setSequenceShuffle
 
-const { RCONClient } = require("../../../src/index.js");
+const { WW2Client } = require("../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("MapManager", () => {
   let client;
 
   beforeAll(async () => {
-    client = new RCONClient({
+    client = new WW2Client({
       host: process.env.RCON_HOST,
       port: process.env.RCON_PORT,
       password: process.env.RCON_PASSWORD

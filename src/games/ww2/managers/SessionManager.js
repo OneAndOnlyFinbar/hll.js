@@ -26,7 +26,7 @@ const BaseManager = require("../../../core/managers/BaseManager");
  * Handles all functions for the active game session.
  */
 class SessionManager extends BaseManager {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   constructor(client) {

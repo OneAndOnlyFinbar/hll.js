@@ -26,7 +26,7 @@
  * Represents a player.
  */
 class Player {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   /** @type {boolean} */
@@ -69,7 +69,7 @@ class Player {
   worldPosition;
 
   /**
-   * @param {RCONClient} client
+   * @param {WW2Client} client
    * @param {Object} data
    * @param {boolean} isPartial
    */

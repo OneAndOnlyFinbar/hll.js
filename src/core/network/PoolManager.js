@@ -8,7 +8,7 @@ class PoolManager {
   /** @type {Array<RCONConnection>} */
   connections = [];
 
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client = null;
 
   /** @type {number} */
@@ -28,7 +28,7 @@ class PoolManager {
 
   /**
    * @param {Object} options - The configuration options for the pool manager.
-   * @param {RCONClient} options.client - The parent RCON client instance.
+   * @param {WW2Client} options.client - The parent RCON client instance.
    * @param {number} [options.connectionsCount=2] - The number of connections to maintain in the pool.
    */
   constructor({ client, connectionsCount = 2 }) {

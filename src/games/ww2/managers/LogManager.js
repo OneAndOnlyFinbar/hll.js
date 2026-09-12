@@ -7,7 +7,7 @@ const safeRcon = require("../../../core/utils/safeRcon");
  * Handles log fetching, parsing, and storage.
  */
 class LogManager extends BaseManager {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   /** @type {Set<string>} */
@@ -18,7 +18,7 @@ class LogManager extends BaseManager {
 
   /**
    *
-   * @param {RCONClient} client
+   * @param {WW2Client} client
    * @param {object} [options]
    * @param {boolean} [options.enableLogPolling=true] - Enable log polling.
    * @param {number} [options.logPollingInterval=1000] - Interval at which to poll logs, in milliseconds.

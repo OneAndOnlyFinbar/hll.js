@@ -31,14 +31,14 @@ const Player = require("../models/Player");
  * @extends {BaseManager}
  */
 class PlayerManager extends BaseManager {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   /** @type {Map<string, Player>} */
   cache;
 
   /**
-   * @param {RCONClient} client
+   * @param {WW2Client} client
    */
   constructor(client) {
     super();

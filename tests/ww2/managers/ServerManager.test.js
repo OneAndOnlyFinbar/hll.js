@@ -1,14 +1,14 @@
 // Not all methods can be tested as they require active players, may disrupt the server, or have no method of verification.
 // Untested methods: setMap, setSectorLayout, setWelcomeMessage, setMatchTimer, removeMatchTimer, setWarmupTimer, removeWarmupTimer
 
-const { RCONClient } = require("../../../src/index.js");
+const { WW2Client } = require("../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("SessionManager", () => {
   let client;
 
   beforeAll(async () => {
-    client = new RCONClient({
+    client = new WW2Client({
       host: process.env.RCON_HOST,
       port: process.env.RCON_PORT,
       password: process.env.RCON_PASSWORD

@@ -22,7 +22,7 @@ const BaseManager = require("../../../core/managers/BaseManager");
  * Handles server map rotations, sequences, and weather configuration.
  */
 class MapManager extends BaseManager {
-  /** @type {RCONClient} */
+  /** @type {WW2Client} */
   client;
 
   constructor(client) {
