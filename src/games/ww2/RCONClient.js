@@ -1,11 +1,11 @@
 const { EventEmitter } = require("node:events");
 
-const LogManager = require("../managers/LogManager");
-const MapManager = require("../managers/MapManager");
-const PlayerManager = require("../managers/PlayerManager");
-const PoolManager = require("../network/PoolManager");
-const ServerManager = require("../managers/ServerManager");
-const SessionManager = require("../managers/SessionManager");
+const PoolManager = require("../../core/network/PoolManager");
+const LogManager = require("./managers/LogManager");
+const MapManager = require("./managers/MapManager");
+const PlayerManager = require("./managers/PlayerManager");
+const ServerManager = require("./managers/ServerManager");
+const SessionManager = require("./managers/SessionManager");
 
 /**
  * @typedef {Object} RconCommandDialogueParameter

@@ -126,7 +126,7 @@ class RCONConnection extends EventEmitter {
 
           // Socket is unresponsive, close the connection.
           if (this.consecutiveTimeouts >= this.maxConsecutiveTimeouts) {
-            this.client.emit("debug",`[ZOMBIE CONNECTION] ${this.consecutiveTimeouts} timeouts in a row. Forcing socket kill...`);
+            this.client.emit("debug", `[ZOMBIE CONNECTION] ${this.consecutiveTimeouts} timeouts in a row. Forcing socket kill...`);
             this.socket.destroy();
           }
         }
@@ -182,7 +182,7 @@ class RCONConnection extends EventEmitter {
 
       // If the header is invalid, the TCP stream is misaligned.
       if (magicHeader !== 0xDE450508) {
-        this.client.emit("debug",`[TCP DESYNC] Invalid Magic Header detected. Attempting to realign buffer...`);
+        this.client.emit("debug", `[TCP DESYNC] Invalid Magic Header detected. Attempting to realign buffer...`);
 
         // Search the buffer for the next valid magic header sequence.
         const magicBytes = Buffer.from([0x08, 0x05, 0x45, 0xDE]);
@@ -231,8 +231,11 @@ class RCONConnection extends EventEmitter {
 
         // Application-level circuit breaker for clean 400 responses
         const isDesynced = responseMessage.statusCode === 400 ||
-          (responseMessage.statusCode !== 200 && typeof responseMessage.contentBody === "string" &&
-            responseMessage.contentBody.toLowerCase().includes("malformed"));
+          (
+            responseMessage.statusCode !== 200
+            && typeof responseMessage.contentBody === "string"
+            && responseMessage.contentBody.toLowerCase().includes("malformed")
+          );
 
         if (isDesynced) {
           // This usually means our transmit stream got messed up.
@@ -245,7 +248,7 @@ class RCONConnection extends EventEmitter {
 
         delete this.requestCache[id];
       } else {
-        this.client.emit("debug",`Ghost Packet: Server responded to ${id} but the message already timed out.`);
+        this.client.emit("debug", `Ghost Packet: Server responded to ${id} but the message already timed out.`);
       }
     }
   }

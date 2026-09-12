@@ -1,4 +1,4 @@
-const { RCONClient } = require("../../src");
+const { RCONClient } = require("../../../src/index");
 require("dotenv").config({ quiet: true });
 
 describe("Client Functions", () => {

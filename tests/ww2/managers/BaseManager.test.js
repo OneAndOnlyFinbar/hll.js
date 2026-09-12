@@ -1,5 +1,5 @@
-const BaseManager = require("../../src/managers/BaseManager");
-const ResponseMessage = require("../../src/network/ResponseMessage");
+const BaseManager = require("../../../src/core/managers/BaseManager");
+const ResponseMessage = require("../../../src/core/network/ResponseMessage");
 
 describe("BaseManager", () => {
   let manager;

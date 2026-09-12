@@ -1,4 +1,4 @@
-const xor = require("../../src/utils/xor");
+const xor = require("../../src/core/utils/xor");
 
 describe("Crypto Utils: xor()", () => {
   it("should symmetrically encrypt and decrypt data", () => {

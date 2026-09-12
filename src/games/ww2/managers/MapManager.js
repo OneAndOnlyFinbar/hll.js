@@ -1,4 +1,4 @@
-const BaseManager = require("./BaseManager.js");
+const BaseManager = require("../../../core/managers/BaseManager");
 
 /**
  * @typedef {Object} MapRotationEntry
