@@ -1,4 +1,4 @@
-const parseLogString = require("../../src/core/utils/parseLogString");
+const { parseLogString } = require("../../../src");
 
 describe("parseLogString", () => {
   describe("Error handling", () => {

@@ -1,4 +1,4 @@
-const { WW2Client } = require("../../../src/index");
+const { WW2Client } = require("../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("Client Functions", () => {
@@ -66,7 +66,7 @@ describe("Client Functions", () => {
     });
   });
 
-  describe("RCONClient", () => {
+  describe("WW2Client", () => {
     let client;
 
     beforeAll(async () => {
