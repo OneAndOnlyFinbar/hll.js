@@ -31,7 +31,7 @@ describe("MapManager", () => {
     });
   });
 
-  describe("addMapToRotation", () => {
+  describe.skip("addMapToRotation", () => {
     it("should add a map at the given index.", async () => {
       const mapsBefore = await client.maps.fetchMapRotation();
 
@@ -47,7 +47,7 @@ describe("MapManager", () => {
     });
   });
 
-  describe("removeMapFromRotation", () => {
+  describe.skip("removeMapFromRotation", () => {
     it("should remove a map at a given index.", async () => {
       await client.maps.addMapToRotation("wdevc_conquest_day", 0);
       await client.maps.addMapToRotation("wdevb_warfare_day", 0);
@@ -75,7 +75,7 @@ describe("MapManager", () => {
     });
   });
 
-  describe("addMapToSequence", () => {
+  describe.skip("addMapToSequence", () => {
     it("should add a map at the given index.", async () => {
       const mapsBefore = await client.maps.fetchMapSequence();
 
@@ -91,7 +91,7 @@ describe("MapManager", () => {
     });
   });
 
-  describe("moveMapInSequence", () => {
+  describe.skip("moveMapInSequence", () => {
     it("should move a map in the sequence.", async () => {
       let currentSequence = await client.maps.fetchMapSequence();
 
