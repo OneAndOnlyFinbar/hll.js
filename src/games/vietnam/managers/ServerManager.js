@@ -10,6 +10,16 @@ const BaseManager = require("../../../core/managers/BaseManager");
  */
 
 /**
+ * @typedef {Object} SectorLayout
+ * @property {string} MapId
+ * @property {number} Sector_1
+ * @property {number} Sector_2
+ * @property {number} Sector_3
+ * @property {number} Sector_4
+ * @property {number} Sector_5
+ */
+
+/**
  * Manages server configurations and actions.
  * @extends BaseManager
  */
@@ -156,6 +166,21 @@ class ServerManager extends BaseManager {
   }
 
   /**
+   * Fetches custom sector layouts.
+   *
+   * @returns {Promise<Array<{ mapId: string, sectors: Array<string> }>>}
+   */
+  async fetchSectorLayout() {
+    const response = await this.client.send({
+      name: "GetSectorLayout"
+    });
+
+    this._validateResponse(response);
+
+    return response.contentBody.entries;
+  }
+
+  /**
    * Fetches the team switch cooldown in minutes.
    *
    * @returns {Promise<number>}
@@ -238,6 +263,25 @@ class ServerManager extends BaseManager {
       name: "RemoveMatchTimer",
       contentBody: {
         GameMode: gamemode
+      }
+    });
+
+    this._validateResponse(response);
+  }
+
+  /**
+   * Removes a sector layout for a specified map.
+   *
+   * @param {string} mapId
+   * @returns {Promise<void>}
+   */
+  async removeSectorLayout(mapId) {
+    this._validateParameter(mapId, "mapId");
+
+    const response = await this.client.send({
+      name: "RemoveSectorLayout",
+      contentBody: {
+        MapId: mapId
       }
     });
 
@@ -435,6 +479,21 @@ class ServerManager extends BaseManager {
     });
 
     this._validateResponse(response);
+  }
+
+  /**
+   * Sets a notice message.
+   *
+   * @param {string} message
+   * @returns {Promise<void>}
+   */
+  async setNoticeMessage(message) {
+    const response = await this.client.send({
+      name: "SetNoticeMessage",
+      contentBody: {
+        Message: message
+      }
+    });
   }
 
   /**

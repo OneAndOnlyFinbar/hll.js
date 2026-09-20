@@ -1,5 +1,5 @@
 // Not all methods can be tested as they require active players, may disrupt the server, or have no method of verification.
-// Untested methods: setMap, setSectorLayout, setWelcomeMessage, setMatchTimer, removeMatchTimer, setWarmupTimer, removeWarmupTimer
+// Untested methods: setMap, setSectorLayout, setWelcomeMessage, setMatchTimer, removeMatchTimer, setWarmupTimer, removeWarmupTimer, setNoticeMessage, fetchSectorLayout, removeSectorLayout
 
 const { VietnamClient } = require("../../../src/index.js");
 require("dotenv").config({ quiet: true });
