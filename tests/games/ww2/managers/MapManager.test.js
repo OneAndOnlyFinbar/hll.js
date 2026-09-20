@@ -1,16 +1,16 @@
 // Untested methods: setDynamicWeather, setSequenceShuffle
 
-const { VietnamClient } = require("../../../src/index.js");
+const { WW2Client } = require("../../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("MapManager", () => {
   let client;
 
   beforeAll(async () => {
-    client = new VietnamClient({
-      host: process.env.RCON_HOST,
-      port: process.env.RCON_PORT,
-      password: process.env.RCON_PASSWORD
+    client = new WW2Client({
+      host: process.env.HLL_RCON_HOST,
+      port: process.env.HLL_RCON_PORT,
+      password: process.env.HLL_RCON_PASSWORD
     });
 
     await client.init();
@@ -36,7 +36,7 @@ describe("MapManager", () => {
       const mapsBefore = await client.maps.fetchMapRotation();
 
       // Safely grab a map that is different from the current index 0
-      const mapToAdd = mapsBefore[0]?.id === "wdevc_conquest_day" ? "wdevb_warfare_day" : "wdevc_conquest_day";
+      const mapToAdd = mapsBefore[0]?.id === "carentan_warfare" ? "driel_warfare" : "carentan_warfare";
 
       await client.maps.addMapToRotation(mapToAdd, 0);
 
@@ -49,18 +49,18 @@ describe("MapManager", () => {
 
   describe("removeMapFromRotation", () => {
     it("should remove a map at a given index.", async () => {
-      await client.maps.addMapToRotation("wdevc_conquest_day", 0);
-      await client.maps.addMapToRotation("wdevb_warfare_day", 0);
-
       const mapsBefore = await client.maps.fetchMapRotation();
+
+      // Ensure there is a map to remove
+      if (mapsBefore.length === 0) {
+        await client.maps.addMapToRotation("carentan_warfare", 0);
+      }
+
+      const mapsBeforeRemoval = await client.maps.fetchMapRotation();
       await client.maps.removeMapFromRotation(0);
       const mapsAfter = await client.maps.fetchMapRotation();
 
-      expect(mapsAfter.length).toBe(mapsBefore.length - 1);
-
-      if (mapsAfter.length > 0) {
-        expect(mapsAfter[0].id).toBe(mapsBefore[1].id);
-      }
+      expect(mapsAfter.length).toBe(mapsBeforeRemoval.length - 1);
     });
   });
 
@@ -80,7 +80,7 @@ describe("MapManager", () => {
       const mapsBefore = await client.maps.fetchMapSequence();
 
       // The server sometimes prefixes paths in sequences, so we just check the base name
-      const mapToAdd = mapsBefore[0]?.name === "wdevc_conquest_day" ? "wdevb_warfare_day" : "wdevc_conquest_day";
+      const mapToAdd = mapsBefore[0]?.name === "carentan_warfare" ? "driel_warfare" : "carentan_warfare";
 
       await client.maps.addMapToSequence(mapToAdd, 0);
 
@@ -97,7 +97,7 @@ describe("MapManager", () => {
 
       // Ensure there are at least 2 maps to swap
       while (currentSequence.length < 2) {
-        await client.maps.addMapToSequence("wdevc_conquest_day", 0);
+        await client.maps.addMapToSequence("carentan_warfare", 0);
         currentSequence = await client.maps.fetchMapSequence();
       }
 
@@ -108,6 +108,25 @@ describe("MapManager", () => {
       const mapSequenceAfter = await client.maps.fetchMapSequence();
 
       expect(mapSequenceAfter[0].id).toBe(mapSequenceBefore[1].id);
+    });
+  });
+
+  describe("removeMapFromRotation", () => {
+    it("should actually remove the map from the server state.", async () => {
+      await client.maps.addMapToRotation("carentan_warfare", 0);
+
+      const mapsBefore = await client.maps.fetchMapRotation();
+      const targetMapId = mapsBefore[0].id;
+
+      await client.maps.removeMapFromRotation(0);
+
+      const mapsAfter = await client.maps.fetchMapRotation();
+
+      expect(mapsAfter.length).toBe(mapsBefore.length - 1);
+
+      if (mapsAfter.length > 0) {
+        expect(mapsAfter[0].id).not.toBe(targetMapId);
+      }
     });
   });
 });

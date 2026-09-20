@@ -1,17 +1,17 @@
 // Not all methods can be tested as they require active players or disrupt the server.
 // Untested methods: setMap, setSectorLayout, broadcast
 
-const { VietnamClient } = require("../../../src/index.js");
+const { WW2Client } = require("../../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("SessionManager", () => {
   let client;
 
   beforeAll(async () => {
-    client = new VietnamClient({
-      host: process.env.RCON_HOST,
-      port: process.env.RCON_PORT,
-      password: process.env.RCON_PASSWORD
+    client = new WW2Client({
+      host: process.env.HLL_RCON_HOST,
+      port: process.env.HLL_RCON_PORT,
+      password: process.env.HLL_RCON_PASSWORD
     });
 
     await client.init();

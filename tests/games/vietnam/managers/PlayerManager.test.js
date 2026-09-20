@@ -1,17 +1,17 @@
 // Not all methods can be tested as they require players in the server.
 // Untested methods: kick, message, disbandPlatoon, punish, removePlayerFromPlatoon, switchTeams
 
-const { WW2Client } = require("../../../src/index.js");
+const { VietnamClient } = require("../../../../src/index");
 require("dotenv").config({ quiet: true });
 
 describe("PlayerManager", () => {
   let client;
 
   beforeAll(async () => {
-    client = new WW2Client({
-      host: process.env.RCON_HOST,
-      port: process.env.RCON_PORT,
-      password: process.env.RCON_PASSWORD
+    client = new VietnamClient({
+      host: process.env.HLLV_RCON_HOST,
+      port: process.env.HLLV_RCON_PORT,
+      password: process.env.HLLV_RCON_PASSWORD
     });
 
     await client.init();

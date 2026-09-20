@@ -31,9 +31,13 @@ jobs:
       - name: Run test suite
         run: yarn test
         env:
-          RCON_HOST: ${{ secrets.RCON_HOST }}
-          RCON_PORT: ${{ secrets.RCON_PORT }}
-          RCON_PASSWORD: ${{ secrets.RCON_PASSWORD }}
+          HLL_RCON_HOST: ${{ secrets.HLL_RCON_HOST }}
+          HLL_RCON_PORT: ${{ secrets.HLL_RCON_PORT }}
+          HLL_RCON_PASSWORD: ${{ secrets.HLL_RCON_PASSWORD }}
+
+          HLLV_RCON_HOST: ${{ secrets.HLLV_RCON_HOST }}
+          HLLV_RCON_PORT: ${{ secrets.HLLV_RCON_PORT }}
+          HLLV_RCON_PASSWORD: ${{ secrets.HLLV_RCON_PASSWORD }}
 
   deploy-docs:
     # Ensure tests pass before attempting to publish documentation

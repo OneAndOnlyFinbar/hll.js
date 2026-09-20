@@ -1,7 +1,7 @@
 // Not all methods can be tested as they require active players, may disrupt the server, or have no method of verification.
 // Untested methods: setMap, setSectorLayout, setWelcomeMessage, setMatchTimer, removeMatchTimer, setWarmupTimer, removeWarmupTimer, setNoticeMessage, fetchSectorLayout, removeSectorLayout
 
-const { VietnamClient } = require("../../../src/index.js");
+const { VietnamClient } = require("../../../../src/index");
 require("dotenv").config({ quiet: true });
 
 describe("SessionManager", () => {
@@ -9,9 +9,9 @@ describe("SessionManager", () => {
 
   beforeAll(async () => {
     client = new VietnamClient({
-      host: process.env.RCON_HOST,
-      port: process.env.RCON_PORT,
-      password: process.env.RCON_PASSWORD
+      host: process.env.HLLV_RCON_HOST,
+      port: process.env.HLLV_RCON_PORT,
+      password: process.env.HLLV_RCON_PASSWORD
     });
 
     await client.init();

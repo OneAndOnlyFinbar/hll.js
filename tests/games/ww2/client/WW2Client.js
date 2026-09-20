@@ -1,4 +1,4 @@
-const { VietnamClient } = require("../../../src/index");
+const { WW2Client } = require("../../../../src/index.js");
 require("dotenv").config({ quiet: true });
 
 describe("Client Functions", () => {
@@ -6,10 +6,10 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new VietnamClient({
-        host: process.env.RCON_HOST,
-        port: process.env.RCON_PORT,
-        password: process.env.RCON_PASSWORD + "1"
+      client = new WW2Client({
+        host: process.env.HLL_RCON_HOST,
+        port: process.env.HLL_RCON_PORT,
+        password: process.env.HLL_RCON_PASSWORD + "1"
       });
     });
 
@@ -30,10 +30,10 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new VietnamClient({
-        host: process.env.RCON_HOST,
-        port: process.env.RCON_PORT,
-        password: process.env.RCON_PASSWORD + "1"
+      client = new WW2Client({
+        host: process.env.HLL_RCON_HOST,
+        port: process.env.HLL_RCON_PORT,
+        password: process.env.HLL_RCON_PASSWORD + "1"
       });
     });
 
@@ -66,14 +66,14 @@ describe("Client Functions", () => {
     });
   });
 
-  describe("VietnamClient", () => {
+  describe("WW2Client", () => {
     let client;
 
     beforeAll(async () => {
-      client = new VietnamClient({
-        host: process.env.RCON_HOST,
-        port: process.env.RCON_PORT,
-        password: process.env.RCON_PASSWORD
+      client = new WW2Client({
+        host: process.env.HLL_RCON_HOST,
+        port: process.env.HLL_RCON_PORT,
+        password: process.env.HLL_RCON_PASSWORD
       });
 
       await client.init();
@@ -114,10 +114,10 @@ describe("Client Functions", () => {
     let client;
 
     beforeAll(async () => {
-      client = new VietnamClient({
-        host: process.env.RCON_HOST,
-        port: process.env.RCON_PORT,
-        password: process.env.RCON_PASSWORD
+      client = new WW2Client({
+        host: process.env.HLL_RCON_HOST,
+        port: process.env.HLL_RCON_PORT,
+        password: process.env.HLL_RCON_PASSWORD
       });
 
       await client.init();
@@ -138,9 +138,9 @@ describe("Client Functions", () => {
 
     describe("fetchCommandInformation", () => {
       it("should fetch information about a specific RCON command.", async () => {
-        const info = await client.fetchCommandInformation("GetClientReferenceData");
+        const info = await client.fetchCommandInformation("SetWelcomeMessage");
 
-        expect(info.name).toBe("GetClientReferenceData");
+        expect(info.name).toBe("SetWelcomeMessage");
       });
     });
   });
