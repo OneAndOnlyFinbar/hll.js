@@ -59,6 +59,9 @@ class Player {
   /** @type {string} */
   platoon;
 
+  /** @type {string} */
+  loadout;
+
   /** @type {PlayerScoreData} */
   scoreData;
 

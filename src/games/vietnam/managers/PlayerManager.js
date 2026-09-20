@@ -180,6 +180,8 @@ class PlayerManager extends BaseManager {
       }
     });
 
+    console.log(response.contentBody.players);
+
     const body = this._validateResponse(response);
 
     return body.players.map(p => this._cache(p));

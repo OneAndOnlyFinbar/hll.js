@@ -45,7 +45,7 @@ class Player {
   platform;
 
   /** @type {string} */
-  eosId;
+  steamId;
 
   /** @type {number} */
   level;
@@ -58,6 +58,12 @@ class Player {
 
   /** @type {string} */
   platoon;
+
+  /** @type {number} */
+  platoonIndex;
+
+  /** @type {string} */
+  loadout;
 
   /** @type {PlayerScoreData} */
   scoreData;
@@ -91,11 +97,12 @@ class Player {
     if ("name" in data) this.name = data.name;
     if ("clanTag" in data) this.clanTag = data.clanTag;
     if ("platform" in data) this.platform = data.platform;
-    if ("eosId" in data) this.eosId = data.eosId;
+    if ("steamId" in data) this.steamId = data.steamId;
     if ("level" in data) this.level = data.level;
     if ("team" in data) this.team = data.team;
     if ("role" in data) this.role = data.role;
     if ("platoon" in data) this.platoon = data.platoon;
+    if ("platoonIndex" in data) this.platoonIndex = data.platoonIndex;
     if ("loadout" in data) this.loadout = data.loadout;
 
     // Normalize the weird casing on cOMBAT while mapping the object
