@@ -1,6 +1,6 @@
 # hll.js
 
-A comprehensive Node.js RCON client for Hell Let Loose.
+A comprehensive Node.js RCON client for HLL and HLL Vietnam.
 
 ### Installation
 
@@ -12,15 +12,15 @@ npm i @finbar/hll.js
 ### Features
 
 - 100% RCON API Coverage
-- High Traffic Concurrency: Connection Pooling & Multiple Messages in Transit
-- Log Parsing
+- Connection pooling
+- Managed log parsing and polling
 
-### Get Started
+### Getting Started
 
 ```js
-const { RCONClient } = require("@finbar/hll.js");
+const { WW2Client } = require("@finbar/hll.js");
 
-const client = new RCONClient({
+const client = new WW2Client({
   host: "123.123.123.123",
   port: 7799,
   password: "PASSWORD"
@@ -57,12 +57,51 @@ client.on("ready", async () => {
 })();
 ```
 
-### Error Paradigm
+### Examples
 
-For many reasons, especially when polling any data, requests may be dropped by the server. It is suggested to wrap all
-requests with the `safeRcon` function exported by this library.
+```js
+//##############################################################
+//#############  Sending a message to all players  #############
+//##############################################################
 
-Log polling performed by the RCONClient class by default uses this function.
+const players = await client.players.fetchAllPlayers();
+
+players.forEach((p) => {
+  p.message(`Hello ${p.name}!`);
+});
+
+
+//##############################################################
+//#################  Basic WKM Implementation  #################
+//##############################################################
+
+const killsCache = {};
+
+client.on("playerKilled", ({ victimId, killerId, killerName }) => {
+  killsCache[victimId] = [killerName, killerId];
+});
+
+client.on("teamChat", async ({ message, playerId }) => {
+  if (message.toLowerCase() !== "!wkm") return;
+
+  const killerData = killsCache[playerId];
+
+  if (killerData) {
+    await client.players.message(playerId, `You were last killed by ${killerData[0]} (ID: ${killerData[1]})`);
+  } else {
+    await client.players.message(playerId, "No kill data available.");
+  }
+});
+
+// Optimally you would also listen to playerTeamkilled and unitChat to store teamkills and also allow !wkm to be sent in unit chat.
+
+```
+
+### Error Handling
+
+For many reasons, especially with frequent polling, requests may be dropped by the server. It is suggested to wrap all
+requests with the `safeRcon` function exported by this library, which softly handles any errors and returns a default
+value.
 
 ```js
 const { safeRcon } = require("@finbar/hll.js");
